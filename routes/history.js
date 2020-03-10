@@ -1,9 +1,12 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET home page. */
+let Query = require('../database-query');
+
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  Query.findAll().then(queries => {
+  	res.send(JSON.stringify({"response": queries}));
+  });
 });
 
 module.exports = router;

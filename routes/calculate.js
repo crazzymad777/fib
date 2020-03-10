@@ -4,7 +4,6 @@ let router = express.Router();
 
 let Query = require('../database-query');
 
-/* GET home page. */
 router.get('/', function(req, res, next) {
 	// Content-type: application/json ?
 	// validate req.query.number 
