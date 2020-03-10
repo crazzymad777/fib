@@ -6,7 +6,7 @@ class Query extends Model {}
 
 Query.init({
   ip: Sequelize.STRING(39),
-  datetime: Sequelize.DATE,
+  timestamp: Sequelize.DATE,
   source: Sequelize.INTEGER,
   result: Sequelize.INTEGER
 }, { timestamps: false, sequelize, modelName: 'Query', tableName: 'queries'});
