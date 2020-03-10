@@ -1,20 +1,19 @@
-let express = require('express');
-let lodash = require('lodash');
-let router = express.Router();
+const express = require('express');
+const lodash = require('lodash');
 
-let Query = require('../database-query');
+const router = express.Router();
 
-router.all('/', function(req, res, next) {
-	// Content-type: application/json ?
-	// validate req.query.number 
-	let number = req.query.number || req.body.number;
-	let result = fibonacci(number);
-	Query.create({ ip: req.connection.remoteAddress, source: number, "result": result});
-    res.send(JSON.stringify({"result": result}));
-});
+const Query = require('../database-query');
 
-let fibonacci = lodash.memoize(function(n) {
-  return n < 2 ? n : fibonacci(n - 1) + fibonacci(n - 2);
+const fibonacci = lodash.memoize((n) => (n < 2 ? n : fibonacci(n - 1) + fibonacci(n - 2)));
+
+router.all('/', (req, res) => {
+  // Content-type: application/json ?
+  // validate req.query.number
+  const number = req.query.number || req.body.number;
+  const result = fibonacci(number);
+  Query.create({ ip: req.connection.remoteAddress, source: number, result });
+  res.send(JSON.stringify({ result }));
 });
 
 module.exports = router;

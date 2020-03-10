@@ -1,11 +1,12 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
 
-let Query = require('../database-query');
+const router = express.Router();
 
-router.get('/', function(req, res, next) {
-  Query.findAll().then(queries => {
-  	res.send(JSON.stringify({"response": queries}));
+const Query = require('../database-query');
+
+router.get('/', (req, res) => {
+  Query.findAll().then((queries) => {
+    res.send(JSON.stringify({ response: queries }));
   });
 });
 
