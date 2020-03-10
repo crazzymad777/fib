@@ -80,9 +80,11 @@ render() {
           </Route>
           <Route path="/history">
             <p>
-              <strong>History of Queries:</strong>
+              <strong>History of Queries</strong>
             </p>
+            <div class="wrapper">
             {this.state.response}
+            </div>
           </Route>
         </Switch>
         </Router>

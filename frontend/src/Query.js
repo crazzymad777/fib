@@ -4,10 +4,10 @@ class Query extends Component {
     render() {
         return (
             <div class="query">
-                <p>{this.props.query.ip}</p>
-                <p>{this.props.query.timestamp}</p>
-                <p>{this.props.query.source}</p>
-                <p>{this.props.query.result}</p>
+                <p class="alpha">IP: {this.props.query.ip}</p>
+                <p class="beta">Timestamp: {this.props.query.timestamp}</p>
+                <p class="gamma">Index: {this.props.query.source}</p>
+                <p class="delta">Result: {this.props.query.result}</p>
             </div>
         );
     }

@@ -41,7 +41,11 @@ ul {
   list-style-type: none;
 }
 
-.query > p {
-  display: inline;
-  margin: 5px;
+.query {
+  margin-bottom: 5px;
+  background-color: #cecece;
+  width: 100%;
+  border-radius: 25px;
+  color: black;
+  padding: 7px;
 }
