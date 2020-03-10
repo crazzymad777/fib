@@ -4,11 +4,12 @@ let router = express.Router();
 
 let Query = require('../database-query');
 
-router.get('/', function(req, res, next) {
+router.all('/', function(req, res, next) {
 	// Content-type: application/json ?
 	// validate req.query.number 
-	let result = fibonacci(req.query.number);
-	Query.create({ ip: req.connection.remoteAddress,  source: req.query.number, "result": result});
+	let number = req.query.number || req.body.number;
+	let result = fibonacci(number);
+	Query.create({ ip: req.connection.remoteAddress, source: number, "result": result});
     res.send(JSON.stringify({"result": result}));
 });
 
