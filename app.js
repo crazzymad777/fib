@@ -10,16 +10,6 @@ let calculateRouter = require('./routes/calculate');
 
 let app = express();
 
-require('custom-env').env();
-
-const mysql = require('mysql');
-const connection = mysql.createConnection({
-  host: process.env.MYSQL_HOST,
-  user: process.env.MYSQL_USER,
-  password: process.env.MYSQL_PASSWORD,
-  database: process.env.MYSQL_DATABASE
-});
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
