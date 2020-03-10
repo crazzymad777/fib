@@ -1,5 +1,6 @@
-var express = require('express');
-var router = express.Router();
+let express = require('express');
+let lodash = require('lodash');
+let router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -8,13 +9,8 @@ router.get('/', function(req, res, next) {
   res.send(JSON.stringify({"result": fibonacci(req.query.number)}));
 });
 
-function fibonacci(num, memo) {
-  memo = memo || {};
-
-  if (memo[num]) return memo[num];
-  if (num <= 1) return 1;
-
-  return memo[num] = fibonacci(num - 1, memo) + fibonacci(num - 2, memo);
-}
+let fibonacci = lodash.memoize(function(n) {
+  return n < 2 ? n : fibonacci(n - 1) + fibonacci(n - 2);
+});
 
 module.exports = router;
