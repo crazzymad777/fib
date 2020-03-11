@@ -7,7 +7,7 @@ Dependencies
 
 Install
 -------------
-0. First of all, we suppose you install all dependencies. Check: `nodejs --version; mysql --version`. There output should be two strings.
+0. First of all, we suppose you install all dependencies. Check: `nodejs --version; mysql --version`. There output should be two strings with versions.
 1. Download [release](https://github.com/crazzymad777/fib/releases).
 2. Extract files.
 3. `cd` into installation directory.
