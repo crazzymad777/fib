@@ -1,4 +1,4 @@
-This site has two pages: /history and /calculate. Calculate Page counts the fibonacci number with given index. History Page shows IP, datetime, entered index number and results of all inputs.
+This site has two pages: /history and /calculate. Calculate Page counts the fibonacci number with given index. History Page shows IP, time, date, entered index number and results of all inputs.
 
 Dependencies
 -------------
