@@ -12,18 +12,12 @@ import './App.css';
 class App extends Component {
   constructor() {
     super();
-    this.state = {
-      number: '',
-      response: '',
-      responseToPost: '',
-    };
+    this.state = { number: '', response: '', responseToPost: '' };
   }
-
 
   componentDidMount() {
     this.callApi()
-      .then((res) => this.setState({ response: res }))
-      .catch((err) => console.error(err));
+      .then((res) => this.setState({ response: res }));
   }
 
   callApi = async () => {
@@ -31,19 +25,20 @@ class App extends Component {
     const body = await response.json();
     if (response.status !== 200) throw Error(body.message);
 
-    const items = body.response.map((query) => <Query query={query} />);
-
-    return items;
+    return body.response.map(
+      (q) => <Query ip={q.ip} timestamp={q.timestamp} source={q.source} result={q.result} />,
+    );
   };
 
   handleSubmit = async (e) => {
     e.preventDefault();
+    const { number } = this.state;
     const response = await fetch('/calculate', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ number: this.state.number }),
+      body: JSON.stringify({ number: number }),
     });
     const body = await response.json();
 
@@ -51,6 +46,7 @@ class App extends Component {
   };
 
   render() {
+    const { number, response, responseToPost } = this.state;
     return (
       <div className="App">
         <header className="App-header">
@@ -73,7 +69,7 @@ class App extends Component {
                   </p>
                   <input
                     type="number"
-                    value={this.state.number}
+                    value={number}
                     onChange={(e) => this.setState({ number: e.target.value })}
                     placeholder="enter index number"
                   />
@@ -81,7 +77,7 @@ class App extends Component {
                 </form>
                 <p>
 Output:
-                  {this.state.responseToPost}
+                  {responseToPost}
                 </p>
               </Route>
               <Route path="/history">
@@ -89,7 +85,7 @@ Output:
                   <strong>History of Queries</strong>
                 </p>
                 <div className="wrapper">
-                  {this.state.response}
+                  {response}
                 </div>
               </Route>
             </Switch>
