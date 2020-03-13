@@ -38,6 +38,10 @@ router.all('/', (req, res, next) => {
   let result = 0;
   try {
     result = fibonacci(number);
+    if (result === Infinity) {
+      next(createError(500));
+      return;
+    }
   } catch (e) {
     if (e instanceof RangeError) {
       next(createError(500));
@@ -48,7 +52,7 @@ router.all('/', (req, res, next) => {
 
   Query.create({ ip: req.connection.remoteAddress, source: number, result });
 
-  sendResponse(res,{ result });
+  sendResponse(res, { result });
 });
 
 module.exports = router;
