@@ -6,19 +6,19 @@ const Query = ({
 }) => (
   <div className="query">
     <p className="alpha">
-            IP:
+      IP:
       {ip}
     </p>
     <p className="beta">
-            Timestamp:
+      Timestamp:
       {timestamp}
     </p>
     <p className="gamma">
-            Index:
+      Index:
       {source}
     </p>
     <p className="delta">
-            Result:
+      Result:
       {result}
     </p>
   </div>

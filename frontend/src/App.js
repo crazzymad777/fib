@@ -38,7 +38,7 @@ class App extends Component {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ number: number }),
+      body: JSON.stringify({ number }),
     });
     const body = await response.json();
 
@@ -76,7 +76,7 @@ class App extends Component {
                   <button type="submit">Calculate</button>
                 </form>
                 <p>
-Output:
+                  Output:
                   {responseToPost}
                 </p>
               </Route>
