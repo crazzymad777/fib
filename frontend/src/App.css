@@ -19,6 +19,7 @@
 
 ul {
   list-style-type: none;
+  padding-left: 0;
 }
 
 .query {
@@ -28,4 +29,8 @@ ul {
   border-radius: 25px;
   color: black;
   padding: 7px;
+}
+
+.alert {
+  color: #d34b2f;
 }

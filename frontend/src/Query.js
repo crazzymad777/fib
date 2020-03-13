@@ -7,18 +7,20 @@ const Query = ({
   <div className="query">
     <p className="alpha">
       IP:
+      { ' ' }
       {ip}
     </p>
     <p className="beta">
-      Timestamp:
       {timestamp}
     </p>
     <p className="gamma">
       Index:
+      { ' ' }
       {source}
     </p>
     <p className="delta">
       Result:
+      { ' ' }
       {result}
     </p>
   </div>

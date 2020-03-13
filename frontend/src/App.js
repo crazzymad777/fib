@@ -12,7 +12,9 @@ import './App.css';
 class App extends Component {
   constructor() {
     super();
-    this.state = { number: '', response: '', responseToPost: '' };
+    this.state = {
+      number: '', response: '', responseToPost: '', alert: '',
+    };
   }
 
   componentDidMount() {
@@ -26,7 +28,7 @@ class App extends Component {
     if (response.status !== 200) throw Error(body.message);
 
     return body.response.map(
-      (q) => <Query ip={q.ip} timestamp={q.timestamp} source={q.source} result={q.result} />,
+      (q) => <Query ip={q.ip} timestamp={new Date(q.timestamp).toLocaleString()} source={q.source} result={q.result} />,
     );
   };
 
@@ -42,11 +44,22 @@ class App extends Component {
     });
     const body = await response.json();
 
-    this.setState({ responseToPost: body.result });
+    if (Object.prototype.hasOwnProperty.call(body, 'error')) {
+      if (Object.prototype.hasOwnProperty.call(body.error, 'message')) {
+        this.setState({ alert: body.error.message });
+      } else {
+        throw body;
+      }
+      return;
+    }
+
+    this.setState({ responseToPost: body.result, alert: '' });
   };
 
   render() {
-    const { number, response, responseToPost } = this.state;
+    const {
+      number, response, responseToPost, alert,
+    } = this.state;
     return (
       <div className="App">
         <header className="App-header">
@@ -77,6 +90,7 @@ class App extends Component {
                 </form>
                 <p>
                   Output:
+                  { ' ' }
                   {responseToPost}
                 </p>
               </Route>
@@ -90,6 +104,9 @@ class App extends Component {
               </Route>
             </Switch>
           </Router>
+          <div className="alert">
+            {alert}
+          </div>
         </header>
       </div>
     );
