@@ -5,39 +5,48 @@ import {
   Route,
   Link,
 } from 'react-router-dom';
-import Query from './Query';
+import ReactPaginate from 'react-paginate';
+import QueryHistory from './QueryHistory';
 
 import './App.css';
-import ReactPaginate from 'react-paginate';
+
+const axios = require('axios');
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
-      number: '', response: '', responseToPost: '', alert: '',
+      number: '', responseToPost: '', alert: '', data: [], offset: 0, limit: 10, pageCount: 0,
     };
   }
 
   componentDidMount() {
-    this.loadHistory()
-      .then((res) => this.setState({ response: res }));
+    const { offset, limit } = this.state;
+    this.loadHistoryAndChangeState(offset, limit);
   }
 
-  loadHistory = async () => {
-    const response = await fetch('/history');
-    const body = await response.json();
+  loadHistoryAndChangeState = (offset, limit) => {
+    this.loadHistory(offset, limit).then((response) => this.setState({
+      pageCount: Math.ceil(response.count / limit),
+      data: response.rows,
+    }));
+  };
+
+  loadHistory = async (offset, limit) => axios.get('/history', { params: { offset, limit } }).then((response) => {
+    const body = response.data;
     if (response.status !== 200) throw Error(body.message);
 
-    return body.response.map(
-      (q) => (
-        <Query
-          ip={q.ip}
-          timestamp={new Date(q.timestamp).toLocaleString()}
-          source={q.source}
-          result={q.result}
-        />
-      ),
-    );
+    return body.response;
+  });
+
+  handlePageClick = (data) => {
+    const { limit } = this.state;
+    const { selected } = data;
+    const offset = Math.ceil(selected * limit);
+
+    this.setState({ offset }, () => {
+      this.loadHistoryAndChangeState(offset, limit);
+    });
   };
 
   handleSubmit = async (e) => {
@@ -66,7 +75,7 @@ class App extends Component {
 
   render() {
     const {
-      number, response, responseToPost, alert,
+      number, data, responseToPost, alert, pageCount,
     } = this.state;
     return (
       <div className="App">
@@ -114,14 +123,14 @@ class App extends Component {
             </div>
             <Route path="/history">
               <div className="wrapper">
-                {response}
+                <QueryHistory data={data} />
               </div>
               <ReactPaginate
                 previousLabel="previous"
                 nextLabel="next"
                 breakLabel="..."
                 breakClassName="break-me"
-                pageCount={this.state.pageCount}
+                pageCount={pageCount}
                 marginPagesDisplayed={2}
                 pageRangeDisplayed={5}
                 onPageChange={this.handlePageClick}
