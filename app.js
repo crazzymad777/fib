@@ -27,6 +27,7 @@ app.use((err, req, res, next) => {
 
   // render the error page
   res.status(err.status || 500);
+  res.setHeader('Content-Type', 'application/json');
   res.send(JSON.stringify({
     error: {
       message: err.message,

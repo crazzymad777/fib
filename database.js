@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 
-require('custom-env').env('.env');
+require('custom-env').env();
 
 const sequelize = new Sequelize(process.env.MYSQL_DATABASE,
   process.env.MYSQL_USER,

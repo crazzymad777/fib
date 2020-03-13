@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "(cd frontend && npm start) & node ./bin/www",
-    "server": "node ./bin/www"
+    "frontend": "cd frontend && npm start",
+    "backend": "node ./bin/www"
   },
   "dependencies": {
     "custom-env": "^2.0.1",
