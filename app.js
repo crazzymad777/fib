@@ -1,6 +1,9 @@
 const createError = require('http-errors');
+
 const express = require('express');
 const logger = require('morgan');
+
+const sendResponse = require('./sendResponse');
 
 const historyRouter = require('./routes/history');
 const calculateRouter = require('./routes/calculate');
@@ -27,14 +30,13 @@ app.use((err, req, res, next) => {
 
   // render the error page
   res.status(err.status || 500);
-  res.setHeader('Content-Type', 'application/json');
-  res.send(JSON.stringify({
+  sendResponse(res, {
     error: {
       message: err.message,
       status: err.status,
       stack,
     },
-  }));
+  });
 });
 
 module.exports = app;

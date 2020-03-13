@@ -4,10 +4,11 @@ const router = express.Router();
 
 const Query = require('../database-query');
 
+const sendResponse = require('../sendResponse');
+
 router.get('/', (req, res) => {
   Query.findAll().then((queries) => {
-    res.setHeader('Content-Type', 'application/json');
-    res.send(JSON.stringify({ response: queries }));
+    sendResponse(res, { response: queries });
   });
 });
 
