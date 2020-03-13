@@ -8,6 +8,7 @@ import {
 import Query from './Query';
 
 import './App.css';
+import ReactPaginate from 'react-paginate';
 
 class App extends Component {
   constructor() {
@@ -18,17 +19,24 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.callApi()
+    this.loadHistory()
       .then((res) => this.setState({ response: res }));
   }
 
-  callApi = async () => {
+  loadHistory = async () => {
     const response = await fetch('/history');
     const body = await response.json();
     if (response.status !== 200) throw Error(body.message);
 
     return body.response.map(
-      (q) => <Query ip={q.ip} timestamp={new Date(q.timestamp).toLocaleString()} source={q.source} result={q.result} />,
+      (q) => (
+        <Query
+          ip={q.ip}
+          timestamp={new Date(q.timestamp).toLocaleString()}
+          source={q.source}
+          result={q.result}
+        />
+      ),
     );
   };
 
@@ -81,12 +89,13 @@ class App extends Component {
                     <strong>Index number:</strong>
                   </p>
                   <input
+                    className="form-control"
                     type="number"
                     value={number}
                     onChange={(e) => this.setState({ number: e.target.value })}
                     placeholder="enter index number"
                   />
-                  <button type="submit">Calculate</button>
+                  <button type="submit" className="btn btn-primary">Calculate</button>
                 </form>
                 <p>
                   Output:
@@ -98,15 +107,30 @@ class App extends Component {
                 <p>
                   <strong>History of Queries</strong>
                 </p>
-                <div className="wrapper">
-                  {response}
-                </div>
               </Route>
             </Switch>
+            <div className="alert">
+              {alert}
+            </div>
+            <Route path="/history">
+              <div className="wrapper">
+                {response}
+              </div>
+              <ReactPaginate
+                previousLabel="previous"
+                nextLabel="next"
+                breakLabel="..."
+                breakClassName="break-me"
+                pageCount={this.state.pageCount}
+                marginPagesDisplayed={2}
+                pageRangeDisplayed={5}
+                onPageChange={this.handlePageClick}
+                containerClassName="pagination"
+                subContainerClassName="pages pagination"
+                activeClassName="active"
+              />
+            </Route>
           </Router>
-          <div className="alert">
-            {alert}
-          </div>
         </header>
       </div>
     );

@@ -7,7 +7,10 @@ const Query = require('../database-query');
 const sendResponse = require('../sendResponse');
 
 router.get('/', (req, res) => {
-  Query.findAll().then((queries) => {
+  const offset = req.query.offset || req.body.offset || 0;
+  const limit = req.query.limit || req.body.limit || 10;
+
+  Query.findAll({ offset, limit }).then((queries) => {
     sendResponse(res, { response: queries });
   });
 });
