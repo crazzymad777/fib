@@ -1,9 +1,9 @@
 version: "3.4"
 
 x-common-variables: &common-variables
-  MYSQL_USER: sampleuser
-  MYSQL_PASSWORD: samplepassword
-  MYSQL_DATABASE: sampledb
+  MYSQL_USER: fib_d1
+  MYSQL_PASSWORD: just_another_password
+  MYSQL_DATABASE: fib_d1
 
 services:
   mysql:
@@ -15,8 +15,6 @@ services:
     restart: unless-stopped
     expose:
       - 3306
-    ports:
-      - "3306:3306"
     volumes:
       - ./db/queries.sql:/docker-entrypoint-initdb.d/queries.sql
   server:
@@ -25,13 +23,10 @@ services:
       - mysql
     expose:
       - 3000
+    ports:
+      - 3000:3000
     environment:
       <<: *common-variables
       MYSQL_HOST: mysql
-    ports:
-      - 3000:3000
-      - 4000:4000
-    volumes:
-      - .:/usr/src/app
     links:
       - mysql
