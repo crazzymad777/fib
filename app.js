@@ -1,26 +1,16 @@
 const createError = require('http-errors');
 const express = require('express');
-const path = require('path');
-const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 
-const indexRouter = require('./routes/index');
 const historyRouter = require('./routes/history');
 const calculateRouter = require('./routes/calculate');
 
 const app = express();
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
-
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
 app.use('/history', historyRouter);
 app.use('/calculate', calculateRouter);
 
@@ -29,15 +19,21 @@ app.use((req, res, next) => {
   next(createError(404));
 });
 
+/* eslint no-unused-vars: ["off", "next"] */
 // error handler
-app.use((err, req, res) => {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+app.use((err, req, res, next) => {
+  // dont't show stack in production
+  const stack = req.app.get('env') === 'development' ? err.stack : undefined;
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.send(JSON.stringify({
+    error: {
+      message: err.message,
+      status: err.status,
+      stack,
+    },
+  }));
 });
 
 module.exports = app;

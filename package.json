@@ -7,7 +7,6 @@
     "server": "node ./bin/www"
   },
   "dependencies": {
-    "cookie-parser": "~1.4.4",
     "custom-env": "^2.0.1",
     "debug": "~2.6.9",
     "ejs": "~2.6.1",
