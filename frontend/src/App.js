@@ -32,13 +32,13 @@ class App extends Component {
 
   handleSubmit = async (e) => {
     e.preventDefault();
-    const { source } = this.state;
+    const { number } = this.state;
     const response = await fetch('/calculate', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ number: source.number }),
+      body: JSON.stringify({ number: number }),
     });
     const body = await response.json();
 
