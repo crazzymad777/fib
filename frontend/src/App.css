@@ -52,10 +52,21 @@ ul {
 
 .alert {
   color: #d34b2f;
+  transition-property: opacity;
+}
+
+.alert-shown {
+  opacity: 1.0;
+  transition-duration: 0.0s;
+}
+
+.alert-hidden {
+  opacity: 0.0;
+  transition-duration: 0.8s;
 }
 
 .wrapper {
-    width: 100%;
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
 }
