@@ -10,9 +10,9 @@ router.get('/', (req, res) => {
   const offset = Number(req.query.offset || req.body.offset || 0);
   const limit = Number(req.query.limit || req.body.limit || 10);
 
-  // offset should be positive integer
-  if (offset <= 0 || !isInteger(offset)) {
-    sendResponse(res, { error: { message: 'offset is not positive integer.' } });
+  // offset should be positive integer or zero
+  if (offset < 0 || !isInteger(offset)) {
+    sendResponse(res, { error: { message: 'offset is not positive integer or zero.' } });
     return;
   }
 
