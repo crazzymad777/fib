@@ -8,8 +8,8 @@ class Query extends Model {}
 Query.init({
   ip: Sequelize.STRING(39),
   timestamp: Sequelize.DATE,
-  source: Sequelize.INTEGER,
-  result: Sequelize.INTEGER,
+  source: Sequelize.INTEGER.UNSIGNED,
+  result: Sequelize.DOUBLE.UNSIGNED,
 }, {
   timestamps: false, sequelize, modelName: 'Query', tableName: 'queries',
 });
