@@ -8,19 +8,7 @@ const Query = require('../database-query');
 
 const fibonacci = lodash.memoize((n) => (n < 2 ? n : fibonacci(n - 1) + fibonacci(n - 2)));
 
-const sendResponse = require('../sendResponse');
-
-/**
- * return true if value is integer.
- * @param value
- * @returns {boolean}
- */
-
-function isInteger(value) {
-  const x = parseFloat(value);
-  // eslint-disable-next-line no-restricted-globals,no-bitwise
-  return !isNaN(value) && (x | 0) === x;
-}
+const { sendResponse, isInteger } = require('../helpful-functions');
 
 router.all('/', (req, res, next) => {
   const number = req.query.number || req.body.number;

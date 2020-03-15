@@ -3,7 +3,7 @@ const createError = require('http-errors');
 const express = require('express');
 const logger = require('morgan');
 
-const sendResponse = require('./sendResponse');
+const { sendResponse } = require('./helpful-functions');
 
 const historyRouter = require('./routes/history');
 const calculateRouter = require('./routes/calculate');

@@ -4,7 +4,7 @@ const router = express.Router();
 
 const Query = require('../database-query');
 
-const sendResponse = require('../sendResponse');
+const { sendResponse } = require('../helpful-functions');
 
 router.get('/', (req, res) => {
   // validate offset and limit
