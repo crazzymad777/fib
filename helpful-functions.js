@@ -34,4 +34,4 @@ const lodash = require('lodash');
 
 const fibonacci = lodash.memoize((n) => (n < 2 ? n : fibonacci(n - 1) + fibonacci(n - 2)));
 
-module.exports.fibonacci = fibonacci;
+module.exports.fibonacci = (index) => (fibonacci(index));
