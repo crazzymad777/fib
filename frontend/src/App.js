@@ -65,7 +65,8 @@ class App extends Component {
    * @param {number} offset - query offset
    * @param {number} limit - query limit
    * @returns {{count: number,
-   * rows: Array.<{ip, timestamp, source, result}>}} object containing count and rows which is array of queries.
+   * rows: Array.<{ip, timestamp, source, result}>}}
+   * object containing count and rows which is array of queries.
    */
   loadHistory = async (offset, limit) => axios.get('/history', { params: { offset, limit } }).then((response) => {
     const body = response.data;
@@ -94,12 +95,9 @@ class App extends Component {
    * @param number
    * @returns {Promise<*>} Content of response.
    */
-  calculate = async (number) => axios.get('/calculate', { params: { number } }).then((response) => {
-    const body = response.data;
-    if (response.status !== 200) throw Error(body.message);
-
-    return body;
-  });
+  calculate = async (number) => axios.get('/calculate', { params: { number } }).then((response) => (
+    response.data
+  ));
 
   /**
      * Handle click on calculate button

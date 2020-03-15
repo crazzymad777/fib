@@ -5,6 +5,7 @@ const logger = require('morgan');
 
 const { sendResponse } = require('./helpful-functions');
 
+// load routes
 const historyRouter = require('./routes/history');
 const calculateRouter = require('./routes/calculate');
 
@@ -14,7 +15,8 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.use('/history', historyRouter);
+// bind routesse('/hist\n' +
+    'app.uory', historyRouter);
 app.use('/calculate', calculateRouter);
 
 // catch 404 and forward to error handler
