@@ -15,9 +15,9 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// bind routesse('/hist\n' +
-    'app.uory', historyRouter);
+// bind routes
 app.use('/calculate', calculateRouter);
+app.use('/history', historyRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
