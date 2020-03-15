@@ -1,14 +1,11 @@
 const createError = require('http-errors');
 const express = require('express');
-const lodash = require('lodash');
 
 const router = express.Router();
 
 const Query = require('../database-query');
 
-const fibonacci = lodash.memoize((n) => (n < 2 ? n : fibonacci(n - 1) + fibonacci(n - 2)));
-
-const { sendResponse, isInteger } = require('../helpful-functions');
+const { sendResponse, isInteger, fibonacci } = require('../helpful-functions');
 
 router.all('/', (req, res, next) => {
   const number = req.query.number || req.body.number;
@@ -27,12 +24,12 @@ router.all('/', (req, res, next) => {
   try {
     result = fibonacci(number);
     if (result === Infinity) {
-      next(createError(500));
+      sendResponse(res, { error: { message: 'result too big' } });
       return;
     }
   } catch (e) {
     if (e instanceof RangeError) {
-      next(createError(500));
+      sendResponse(res, { error: { message: 'result too big' } });
       return;
     }
     throw e;
