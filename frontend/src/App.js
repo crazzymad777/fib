@@ -14,29 +14,35 @@ import axios from './axios-settings';
 
 /**
  * class App represents frontend.
+ * @component
  */
 
 class App extends Component {
   /**
    * App constructor
-   * @param props
+   * @param {object} props - properties of react component
    */
   constructor(props) {
     super(props);
-    // number - entered number.
-    // responseToPost - calculated number.
-    // alert - error message which will show.
-    // data - array of queries.
-    // (query) offset for pagination.
-    // limit - total number of queries in one page.
-    // pageCount - total number of pages for queries.
-    // showingAlert - show or hide alert block.
-    // timeoutId - ID of timer which hide alert message.
+    /**
+     * @property {number} state.number - entered number
+     * @property {number} state.responseToPost - calculated number
+     * @property {string} state.alert - error message which will show
+     * @property {Array.<{ip, timestamp, source, result}>} state.data - array of queries
+     * @property {number} state.offset - pagination offset
+     * @property {number} state.limit - total number of queries in one page
+     * @property {number} state.pageCount - total number of pages for queries
+     * @property {boolean} state.showingAlert - show or hide alert block
+     * @property {number} state.timeoutId - ID of timer which hide alert message
+     */
     this.state = {
       number: 0, responseToPost: 0, alert: '', data: [], offset: 0, limit: 10, pageCount: 0, showingAlert: false, timeoutId: 0,
     };
   }
 
+  /**
+   * Called when component did mount. Loads history and updates states.
+   */
   componentDidMount() {
     const { offset, limit } = this.state;
     this.loadHistoryAndChangeState(offset, limit);
@@ -47,7 +53,6 @@ class App extends Component {
      * @param {number} offset
      * @param {number} limit
      */
-
   loadHistoryAndChangeState = (offset, limit) => {
     this.loadHistory(offset, limit).then((response) => this.setState({
       pageCount: Math.ceil(response.count / limit),
@@ -56,12 +61,12 @@ class App extends Component {
   };
 
   /**
-   * Returns object containing 'count' and 'rows' which is array of queries.
-   * @param {number} offset
-   * @param {number} limit
-   * @returns {{count: number, rows: [{ip, timestamp, source, result}]}}
+   * Loads queries with given offset and limit.
+   * @param {number} offset - query offset
+   * @param {number} limit - query limit
+   * @returns {{count: number,
+   * rows: Array.<{ip, timestamp, source, result}>}} object containing count and rows which is array of queries.
    */
-
   loadHistory = async (offset, limit) => axios.get('/history', { params: { offset, limit } }).then((response) => {
     const body = response.data;
     if (response.status !== 200) throw Error(body.message);
@@ -70,7 +75,7 @@ class App extends Component {
   });
 
   /**
-     * handle click on pagination item
+     * Handle click on pagination item
      * @param data
      */
   handlePageClick = (data) => {
@@ -85,10 +90,9 @@ class App extends Component {
   };
 
   /**
-   * Requires backend to calculate fibonacci number and returns content of response.
-   * It can be error or result.
+   * Requires backend to calculate fibonacci number.
    * @param number
-   * @returns {Promise<*>}
+   * @returns {Promise<*>} Content of response.
    */
   calculate = async (number) => axios.get('/calculate', { params: { number } }).then((response) => {
     const body = response.data;
@@ -98,9 +102,8 @@ class App extends Component {
   });
 
   /**
-     * handle click on calculate button
-     * @param e
-     * @returns {Promise<void>}
+     * Handle click on calculate button
+     * @param {event} e - Event object
      */
   handleSubmit = async (e) => {
     e.preventDefault();
@@ -134,6 +137,10 @@ class App extends Component {
     this.setState({ responseToPost: body.result, alert: '' });
   };
 
+  /**
+   * Rend App component
+   * @returns {*} rendered App component
+   */
   render() {
     const {
       number, data, responseToPost, alert, pageCount, showingAlert,

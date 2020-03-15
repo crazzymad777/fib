@@ -1,6 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+/**
+ * React-component Query
+ * @param {string} ip - IP of user
+ * @param {string} timestamp - when query was sent
+ * @param {number} source - source number
+ * @param {number} result - calculated fibonacci number
+ * @returns {*} rendered query component
+ * @constructor
+ */
 const Query = ({
   ip, timestamp, source, result,
 }) => (
