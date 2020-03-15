@@ -4,7 +4,8 @@ import Query from './Query';
 
 /**
  * Render queries from given array data.
- * @param {Array.<{ip: string, timestamp: string, source: number, result: number}>} data queries to rend
+ * @param {Array.<{ip: string, timestamp: string, source: number, result: number}>}
+ * data queries to rend
  * @returns {*} Rendered queries
  * @constructor
  */

@@ -13,5 +13,5 @@
   "rules": {
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
   },
-  "globals": { "fetch": false }
+  "globals": { "fetch": false, "expect": false }
 }
